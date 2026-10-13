@@ -1,1249 +1,394 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cricket Arena - Live Cricket News & Scores</title>
-
+<title>CBTF</title>
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root{
+  --cbtf-cyan:#00d8e2;
+  --cbtf-cyan-dark:#00aeb8;
+  --cbtf-black:#080808;
+  --cbtf-panel:#141414;
+  --cbtf-border:#343434;
+  --cbtf-text:#f5f5f5;
+  --cbtf-yellow:#ffd500;
 }
 
-:root {
-    --green: #087f48;
-    --dark: #101b17;
-    --light: #f4f7f5;
-    --gray: #6b7770;
-    --border: #e1e8e3;
-    --white: #ffffff;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:var(--cbtf-black);
+  color:var(--cbtf-text);
 }
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--light);
-    color: var(--dark);
-    line-height: 1.6;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-button, input, select {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-.top-header {
-    background: #101b17;
-    color: white;
-    padding: 9px 5%;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    font-size: 12px;
-}
-
-header {
-    background: white;
-    padding: 20px 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-    border-bottom: 1px solid var(--border);
-}
-
-.logo {
-    font-size: 29px;
-    font-weight: 900;
-    letter-spacing: -1px;
-}
-
-.logo span {
-    color: var(--green);
-}
-
-nav {
-    display: flex;
-    gap: 21px;
-    flex-wrap: wrap;
-}
-
-nav a {
-    font-size: 13px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: var(--green);
-}
-
-.search-box {
-    display: flex;
-    gap: 5px;
-}
-
-.search-box input {
-    width: 150px;
-    padding: 9px;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-}
-
-.search-box button,
-.btn {
-    border: none;
-    background: var(--green);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-}
-
-.ticker {
-    background: var(--green);
-    color: white;
-    padding: 11px 5%;
-    font-size: 13px;
-}
-
-.ticker strong {
-    margin-right: 10px;
-}
-
-.container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 30px auto;
-}
-
-.section-title {
-    font-size: 23px;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.section-title small {
-    color: var(--green);
-    font-size: 12px;
-}
-
-.live {
-    color: #e52f3b;
-    font-weight: bold;
-    font-size: 12px;
-}
-
-.score-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    min-width: 0;
-}
-
-.match-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    color: var(--gray);
-    font-size: 11px;
-}
-
-.team {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    margin: 18px 0;
-    font-weight: bold;
-}
-
-.team-name {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.flag {
-    font-size: 24px;
-}
-
-.score {
-    font-size: 19px;
-}
-
-.overs {
-    color: var(--gray);
-    font-size: 11px;
-    font-weight: normal;
-}
-
-.match-result {
-    border-top: 1px solid var(--border);
-    padding-top: 12px;
-    margin-top: 12px;
-    font-size: 12px;
-    color: var(--green);
-}
-
-.match-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 13px;
-}
-
-.match-actions button {
-    flex: 1;
-    background: #edf6f0;
-    border: none;
-    color: var(--green);
-    padding: 9px;
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.main-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
-    gap: 25px;
-    margin-top: 38px;
-}
-
-.hero {
-    min-height: 310px;
-    background: linear-gradient(120deg, #092d20, #087f48);
-    color: white;
-    padding: 35px;
-    border-radius: 13px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 25px;
-}
-
-.hero-label {
-    color: #a8edc5;
-    font-weight: bold;
-    font-size: 12px;
-    letter-spacing: 2px;
-}
-
-.hero h1 {
-    font-size: clamp(28px, 4vw, 43px);
-    line-height: 1.2;
-    margin: 17px 0;
-}
-
-.hero p {
-    max-width: 600px;
-    color: #e0eee5;
-    font-size: 14px;
-}
-
-.hero .btn {
-    margin-top: 20px;
-    width: fit-content;
-    background: white;
-    color: var(--green);
-    font-weight: bold;
-}
-
-.tabs {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-}
-
-.tab {
-    border: 1px solid var(--border);
-    padding: 9px 14px;
-    border-radius: 5px;
-    background: white;
-    font-size: 12px;
-}
-
-.tab.active {
-    background: var(--green);
-    color: white;
-}
-
-.commentary-item {
-    display: grid;
-    grid-template-columns: 60px 1fr;
-    gap: 12px;
-    padding: 17px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-}
-
-.over-ball {
-    background: #e6f5eb;
-    color: var(--green);
-    text-align: center;
-    border-radius: 6px;
-    padding: 7px;
-    font-weight: bold;
-    height: fit-content;
-}
-
-.commentary-item p {
-    color: var(--gray);
-    margin-top: 5px;
-}
-
-.news-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.news-item {
-    display: grid;
-    grid-template-columns: 105px 1fr;
-    gap: 13px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.news-image {
-    min-height: 95px;
-    border-radius: 8px;
-    display: grid;
-    place-items: center;
-    font-size: 34px;
-    background: linear-gradient(140deg, #d6ebdc, #76a98a);
+
+.container{
+  display:flex;
+  flex-direction:row-reverse;
+  min-height:100vh;
 }
 
-.news-item h3 {
-    font-size: 14px;
-    line-height: 1.5;
+.demo{
+  width:70%;
+  background:#000;
+  position:relative;
 }
 
-.news-item p {
-    color: var(--gray);
-    font-size: 11px;
-    margin-top: 7px;
+iframe{
+  width:100%;
+  height:100vh;
+  border:none;
 }
 
-.news-item[hidden] {
-    display: none;
+.right{
+  width:30%;
+  padding:30px 22px;
+  background:linear-gradient(180deg,#1b1b1b,#090909);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow-y:auto;
 }
 
-.sidebar-box {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 22px;
+.box{
+  width:100%;
+  background:var(--cbtf-panel);
+  border:1px solid var(--cbtf-border);
+  border-top:3px solid var(--cbtf-cyan);
+  border-radius:8px;
+  padding:26px 20px;
+  text-align:center;
+  box-shadow:0 8px 28px rgba(0,0,0,.45);
 }
 
-.sidebar-box h3 {
-    margin-bottom: 15px;
+.badge{
+  display:inline-block;
+  background:var(--cbtf-cyan);
+  color:#071012;
+  padding:8px 18px;
+  border-radius:4px;
+  font-weight:800;
+  margin-bottom:16px;
 }
 
-.news-search {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    margin-bottom: 10px;
+h1{
+  font-size:34px;
+  color:#fff;
+  margin-bottom:10px;
+  text-transform:uppercase;
 }
-
-.quick-link {
-    display: block;
-    padding: 11px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-}
-
-.quick-link:hover {
-    color: var(--green);
+
+.sub{
+  font-size:17px;
+  line-height:1.5;
+  margin-bottom:22px;
+  color:#ddd;
 }
 
-.table-wrap {
-    overflow-x: auto;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
+.features{
+  display:grid;
+  gap:12px;
+  margin:22px 0;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-    min-width: 500px;
-    font-size: 13px;
+.feature{
+  background:linear-gradient(90deg,#191919,#202020);
+  border:1px solid var(--cbtf-border);
+  border-left:3px solid var(--cbtf-cyan);
+  padding:14px;
+  border-radius:4px;
+  font-size:17px;
+  font-weight:700;
 }
 
-th, td {
-    text-align: left;
-    padding: 15px;
-    border-bottom: 1px solid var(--border);
+.feature span{
+  color:var(--cbtf-yellow);
 }
 
-th {
-    background: #eaf3ed;
-    color: #244d36;
+.signup-btn{
+  display:inline-block;
+  margin-top:8px;
+  padding:9px 16px;
+  background:var(--cbtf-cyan);
+  color:#071012;
+  text-decoration:none;
+  border-radius:4px;
+  font-size:15px;
+  font-weight:800;
+  border:1px solid var(--cbtf-cyan-dark);
+  transition:.2s;
 }
 
-.player-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
+.signup-btn:hover{
+  background:var(--cbtf-cyan-dark);
 }
 
-.player-card {
-    background: white;
-    padding: 22px 12px;
-    text-align: center;
-    border: 1px solid var(--border);
-    border-radius: 10px;
+.website-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+  font-size:14px;
+  font-weight:bold;
 }
 
-.player-avatar {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    margin: 0 auto 12px;
-    background: #e0f0e5;
-    font-size: 30px;
+.website-row a{
+  text-decoration:none;
+}
+
+.website{
+  color:var(--cbtf-cyan);
 }
 
-.player-card h3 {
-    font-size: 14px;
-}
-
-.player-card p {
-    color: var(--gray);
-    font-size: 12px;
-}
+.whatsapp-small{
+  color:#39c66a;
+}
 
-.player-stat {
-    color: var(--green);
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10px;
+.cta{
+  display:block;
+  background:#168f43;
+  color:#fff;
+  text-decoration:none;
+  padding:17px;
+  border-radius:4px;
+  font-size:20px;
+  font-weight:900;
+  margin-top:22px;
+  transition:.2s;
 }
-
-.fixtures {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 15px;
+
+.cta:hover{
+  background:#107638;
+}
+
+.floating-signup{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  background:var(--cbtf-cyan);
+  color:#071012;
+  padding:12px 24px;
+  border-radius:4px;
+  font-size:18px;
+  font-weight:900;
+  border:2px solid #fff;
+  box-shadow:0 8px 20px rgba(0,216,226,.35);
+  transition:.2s;
+  text-decoration:none;
+  display:inline-block;
 }
 
-.fixture {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    background: white;
-    padding: 18px;
-    border: 1px solid var(--border);
-    border-radius: 9px;
+.floating-signup:hover{
+  transform:translateX(-50%) scale(1.04);
+  background:var(--cbtf-cyan-dark);
 }
 
-.fixture strong {
-    font-size: 13px;
+.trust{
+  margin-top:16px;
+  color:#ddd;
+  font-size:14px;
+  line-height:1.5;
 }
 
-.fixture p {
-    font-size: 11px;
-    color: var(--gray);
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  color:#aaa;
+  line-height:1.5;
 }
 
-.fixture-badge {
-    background: #e7f5eb;
-    color: var(--green);
-    border-radius: 5px;
-    padding: 7px;
-    font-size: 11px;
-    white-space: nowrap;
+.bonus-popup{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:rgba(0,0,0,.82);
 }
 
-.newsletter {
-    margin-top: 40px;
-    background: #10291f;
-    color: white;
-    padding: 35px;
-    border-radius: 12px;
-    text-align: center;
+.bonus-popup[hidden]{
+  display:none;
 }
 
-.newsletter p {
-    color: #cbdad0;
-    font-size: 13px;
-    margin: 10px 0 20px;
+.bonus-dialog{
+  position:relative;
+  width:min(100%,420px);
+  padding:34px 24px 28px;
+  border:2px solid var(--cbtf-cyan);
+  border-radius:8px;
+  background:#141414;
+  text-align:center;
+  color:var(--cbtf-text);
+  box-shadow:0 18px 60px rgba(0,0,0,.7);
+  animation:popup-enter .24s ease-out;
 }
 
-.newsletter form {
-    display: flex;
-    gap: 8px;
-    max-width: 500px;
-    margin: auto;
+.bonus-close{
+  position:absolute;
+  top:8px;
+  right:12px;
+  border:0;
+  background:transparent;
+  color:var(--cbtf-cyan);
+  font-size:28px;
+  line-height:1;
+  cursor:pointer;
 }
 
-.newsletter input {
-    flex: 1;
-    min-width: 0;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
+.bonus-dialog h2{
+  margin-bottom:10px;
+  color:var(--cbtf-yellow);
+  font-size:30px;
 }
 
-footer {
-    margin-top: 45px;
-    background: #101b17;
-    color: white;
-    padding: 40px 5%;
+.bonus-dialog p{
+  margin-bottom:22px;
+  color:#eee;
+  line-height:1.7;
 }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 30px;
+.bonus-claim{
+  display:block;
+  padding:14px 18px;
+  border-radius:4px;
+  background:var(--cbtf-cyan);
+  color:#071012;
+  font-size:17px;
+  font-weight:800;
+  text-decoration:none;
 }
 
-footer h3 {
-    margin-bottom: 12px;
+.bonus-claim:hover{
+  background:var(--cbtf-cyan-dark);
 }
 
-footer p, footer a {
-    color: #b9c7be;
-    font-size: 13px;
+@keyframes popup-enter{
+  from{opacity:0;transform:translateY(10px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
 }
 
-footer a {
-    display: block;
-    margin: 8px 0;
+@media(prefers-reduced-motion:reduce){
+  .bonus-dialog{animation:none}
 }
 
-.copyright {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #34453b;
-    text-align: center;
-}
+@media(max-width:768px){
+  .container{
+    flex-direction:column-reverse;
+  }
 
-@media(max-width: 1000px) {
-    .score-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .demo,
+  .right{
+    width:100%;
+  }
 
-    .main-grid {
-        grid-template-columns: 1fr;
-    }
+  iframe{
+    height:500px;
+  }
 
-    .player-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .right{
+    padding:20px;
+  }
 }
-
-@media(max-width: 650px) {
-    .top-header {
-        flex-direction: column;
-    }
-
-    header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    nav {
-        gap: 13px;
-    }
-
-    .container {
-        width: 92%;
-    }
-
-    .score-grid,
-    .fixtures {
-        grid-template-columns: 1fr;
-    }
 
-    .player-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+@media(max-width:480px){
+  h1{
+    font-size:28px;
+  }
 
-    .hero {
-        padding: 24px;
-    }
+  .sub{
+    font-size:16px;
+  }
 
-    .newsletter {
-        padding: 25px 15px;
-    }
+  .feature{
+    font-size:16px;
+    padding:12px;
+  }
 
-    .newsletter form {
-        flex-direction: column;
-    }
+  .signup-btn{
+    font-size:14px;
+    padding:8px 13px;
+  }
 
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
+  .cta{
+    font-size:18px;
+    padding:15px;
+  }
 
-    .section-title {
-        font-size: 20px;
-    }
+  .website-row{
+    flex-direction:column;
+    gap:8px;
+  }
 }
 </style>
 </head>
-
 <body>
-
-<!-- TOP BAR -->
-<div class="top-header">
-    <span>WELCOME TO CRICKET ARENA</span>
-    <span id="date"></span>
+<div class="bonus-popup" id="bonusPopup" role="dialog" aria-modal="true" aria-labelledby="bonusTitle">
+  <div class="bonus-dialog">
+    <button class="bonus-close" id="bonusClose" type="button" aria-label="Close bonus popup">&times;</button>
+    <h2 id="bonusTitle">Bonus Offer</h2>
+    <p>10% Deposit Bonus<br>15% Losing Bonus<br>3% Referral Bonus</p>
+    <a class="bonus-claim" href="https://cbtf.com/clk?src=dvOFld5Vu">Sign Up with CBTF</a>
+  </div>
 </div>
 
-<!-- HEADER -->
-<header>
-    <a href="#" class="logo">CRICKET<span>ARENA</span></a>
+<div class="container">
+  <div class="demo">
+    <a href="https://cbtf.com/clk?src=dvOFld5Vu" target="_blank" rel="noopener noreferrer" class="floating-signup">SIGN UP WITH CBTF</a>
+    <iframe src="https://cbtf.com/clk?src=dvOFld5Vu" title="CBTF"></iframe>
+  </div>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#scores">Live Scores</a>
-        <a href="#news">News</a>
-        <a href="#blog">Live Blog</a>
-        <a href="#fixtures">Fixtures</a>
-        <a href="#points">Points Table</a>
-        <a href="#players">Players</a>
-    </nav>
+  <div class="right">
+    <div class="box">
+      <div class="badge">CBTF</div>
+      <h1>Get Your ID Now</h1>
+      <p class="sub">Fast auto website service with easy deposit support. New users can start quickly through WhatsApp.</p>
 
-    <div class="search-box">
-        <input type="search" id="globalSearch"
-               placeholder="Search news..." aria-label="Search news">
-        <button id="searchButton">Search</button>
+      <div class="features">
+        <div class="feature">Minimum Deposit: <span>₹100 Only</span></div>
+        <div class="feature">Welcome Bonus: <span>10%</span></div>
+        <div class="feature">
+          CBTF Signup:
+          <a class="signup-btn" href="https://cbtf.com/clk?src=dvOFld5Vu" target="_blank" rel="noopener noreferrer">Sign Up with CBTF</a>
+        </div>
+        <div class="feature">Quick Help: <span>Deposit &amp; Withdrawal Support</span></div>
+      </div>
+
+      <div class="website-row">
+        <a class="website" href="https://cbtf.com/clk?src=dvOFld5Vu" target="_blank" rel="noopener noreferrer">CBTF website</a>
+        <a class="whatsapp-small" href="https://wa.me/+917975156087" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+
+      <a class="cta" href="https://wa.me/+917975156087?text=Hello%20I%20want%20new%20manual%20ID" target="_blank" rel="noopener noreferrer">WhatsApp Now</a>
+      <p class="trust">Trusted Manual Support<br>Simple Process<br>Fast Response</p>
+      <div class="footer">18+ Only | Play Responsibly | Follow Your Local Laws | T&amp;C Apply</div>
     </div>
-</header>
-
-<!-- NEWS TICKER -->
-<div class="ticker">
-    <strong>🏏 CRICKET NEWS</strong>
-    <span>Scores, match reports, player performances and cricket updates in one place.</span>
+  </div>
 </div>
-
-<main class="container" id="home">
-
-<!-- HERO SECTION -->
-<section class="hero">
-    <div class="hero-label">THE HOME OF CRICKET</div>
-    <h1>Every Match.<br>Every Run. Every Moment.</h1>
-    <p>
-        Follow cricket scores, match commentary, team news, tournament
-        standings and player statistics from around the world.
-    </p>
-    <a class="btn" href="#scores">Explore Match Centre →</a>
-</section>
-
-<!-- LIVE SCORES -->
-<section id="scores">
-    <h2 class="section-title">
-        🏏 Cricket Match Centre
-        <small>DEMO DATA</small>
-    </h2>
-
-    <div class="score-grid" id="scoreGrid"></div>
-</section>
-
-<!-- MAIN CONTENT -->
-<div class="main-grid">
-
-<div>
-
-<!-- LIVE BLOG -->
-<section id="blog">
-    <h2 class="section-title">📝 Live Cricket Blog</h2>
-
-    <div class="card">
-        <div class="match-head">
-            <span>FEATURED MATCH CENTRE</span>
-            <span class="live">● SAMPLE FEED</span>
-        </div>
-
-        <h3 style="margin:15px 0 5px" id="commentaryTitle">
-            India vs Australia
-        </h3>
-
-        <p style="font-size:12px;color:#6b7770;margin-bottom:18px">
-            Illustrative ball-by-ball commentary. Not a live match feed.
-        </p>
-
-        <div class="tabs">
-            <button class="tab active" data-filter="all">All</button>
-            <button class="tab" data-filter="boundary">Boundaries</button>
-            <button class="tab" data-filter="wicket">Wickets</button>
-        </div>
-
-        <div id="commentaryFeed"></div>
-
-        <button class="btn" id="moreCommentary">
-            Load Sample Update
-        </button>
-    </div>
-</section>
-
-<!-- LATEST NEWS -->
-<section id="news" style="margin-top:35px">
-    <h2 class="section-title">📰 Latest Cricket News</h2>
-
-    <div class="news-list" id="newsList">
-
-        <article class="news-item" data-search="india cricket team tournament">
-            <div class="news-image">🏏</div>
-            <div>
-                <h3>India cricket: Team preparation and tournament talking points</h3>
-                <p>TEAM NEWS · SAMPLE ARTICLE</p>
-            </div>
-        </article>
-
-        <article class="news-item" data-search="test cricket match analysis">
-            <div class="news-image">🏆</div>
-            <div>
-                <h3>Test cricket: Five things that can change a match</h3>
-                <p>MATCH ANALYSIS · SAMPLE ARTICLE</p>
-            </div>
-        </article>
-
-        <article class="news-item" data-search="t20 cricket batting bowling">
-            <div class="news-image">⚡</div>
-            <div>
-                <h3>T20 cricket: Batting strategies and bowling trends</h3>
-                <p>T20 CRICKET · SAMPLE ARTICLE</p>
-            </div>
-        </article>
-
-        <article class="news-item" data-search="women cricket international">
-            <div class="news-image">🌟</div>
-            <div>
-                <h3>Women's international cricket: Players to watch</h3>
-                <p>WOMEN'S CRICKET · SAMPLE ARTICLE</p>
-            </div>
-        </article>
-
-        <article class="news-item" data-search="cricket world cup teams">
-            <div class="news-image">🌍</div>
-            <div>
-                <h3>World cricket: Tournament teams and key matchups</h3>
-                <p>TOURNAMENTS · SAMPLE ARTICLE</p>
-            </div>
-        </article>
-
-        <article class="news-item" data-search="young cricket players future stars">
-            <div class="news-image">🚀</div>
-            <div>
-                <h3>Young cricketers making their mark on the game</h3>
-                <p>PLAYER WATCH · SAMPLE ARTICLE</p>
-            </div>
-        </article>
-
-    </div>
-</section>
-
-<!-- FIXTURES -->
-<section id="fixtures" style="margin-top:35px">
-    <h2 class="section-title">📅 Upcoming Fixtures</h2>
-    <div class="fixtures" id="fixtureGrid"></div>
-</section>
-
-</div>
-
-<!-- SIDEBAR -->
-<aside>
-
-    <div class="sidebar-box">
-        <h3>🔥 Popular Sections</h3>
-        <a class="quick-link" href="#scores">Live Score Centre</a>
-        <a class="quick-link" href="#blog">Ball-by-Ball Commentary</a>
-        <a class="quick-link" href="#news">Latest Cricket News</a>
-        <a class="quick-link" href="#fixtures">Upcoming Fixtures</a>
-        <a class="quick-link" href="#points">Tournament Standings</a>
-        <a class="quick-link" href="#players">Player Statistics</a>
-    </div>
-
-    <div class="sidebar-box">
-        <h3>📊 Points Table</h3>
-        <p style="font-size:11px;color:#6b7770;margin-bottom:12px">
-            Example standings — not current tournament data.
-        </p>
-
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Team</th>
-                        <th>Played</th>
-                        <th>Pts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>🇮🇳 India</td><td>5</td><td>8</td></tr>
-                    <tr><td>🇦🇺 Australia</td><td>5</td><td>7</td></tr>
-                    <tr><td>🇿🇦 South Africa</td><td>5</td><td>6</td></tr>
-                    <tr><td>🏴 England</td><td>5</td><td>4</td></tr>
-                    <tr><td>🇵🇰 Pakistan</td><td>5</td><td>3</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="sidebar-box">
-        <h3>🌐 Cricket Resources</h3>
-        <a class="quick-link" href="https://www.icc-cricket.com/"
-           target="_blank" rel="noopener">International Cricket Council</a>
-        <a class="quick-link" href="https://www.espncricinfo.com/"
-           target="_blank" rel="noopener">ESPNcricinfo</a>
-        <a class="quick-link" href="https://www.cricbuzz.com/"
-           target="_blank" rel="noopener">Cricbuzz</a>
-    </div>
-
-</aside>
-</div>
-
-<!-- PLAYERS -->
-<section id="players" style="margin-top:40px">
-    <h2 class="section-title">⭐ Featured Players</h2>
-
-    <div class="player-grid">
-        <article class="player-card">
-            <div class="player-avatar">🏏</div>
-            <h3>Virat Kohli</h3>
-            <p>India · Batter</p>
-            <div class="player-stat">BAT</div>
-        </article>
-
-        <article class="player-card">
-            <div class="player-avatar">🏏</div>
-            <h3>Jasprit Bumrah</h3>
-            <p>India · Bowler</p>
-            <div class="player-stat">BOWL</div>
-        </article>
-
-        <article class="player-card">
-            <div class="player-avatar">🏏</div>
-            <h3>Pat Cummins</h3>
-            <p>Australia · Bowler</p>
-            <div class="player-stat">BOWL</div>
-        </article>
-
-        <article class="player-card">
-            <div class="player-avatar">🏏</div>
-            <h3>Babar Azam</h3>
-            <p>Pakistan · Batter</p>
-            <div class="player-stat">BAT</div>
-        </article>
-    </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter">
-    <h2>📩 Cricket News Newsletter</h2>
-    <p>Get match updates and cricket stories in your inbox.</p>
-
-    <form id="newsletterForm">
-        <input type="email" id="email"
-               placeholder="Enter your email address" required>
-        <button type="submit" class="btn">Subscribe</button>
-    </form>
-
-    <p id="newsletterMessage" aria-live="polite"></p>
-</section>
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-    <div class="footer-grid">
-        <div>
-            <a href="#" class="logo">CRICKET<span>ARENA</span></a>
-            <p style="margin-top:15px">
-                Your cricket destination for scores, news, match analysis,
-                fixtures, commentary and player profiles.
-            </p>
-        </div>
-
-        <div>
-            <h3>Quick Links</h3>
-            <a href="#scores">Live Scores</a>
-            <a href="#news">Cricket News</a>
-            <a href="#blog">Live Blog</a>
-            <a href="#fixtures">Fixtures</a>
-        </div>
-
-        <div>
-            <h3>Official Resources</h3>
-            <a href="https://www.icc-cricket.com/">ICC</a>
-            <a href="https://www.espncricinfo.com/">ESPNcricinfo</a>
-            <a href="https://www.cricbuzz.com/">Cricbuzz</a>
-        </div>
-    </div>
-
-    <div class="copyright">
-        <p>© <span id="year"></span> Cricket Arena. All rights reserved.</p>
-        <p>Demo content only. Live data requires a connected data provider.</p>
-    </div>
-</footer>
 
 <script>
-// DATE
-document.getElementById("date").textContent =
-    new Date().toLocaleDateString("en-GB", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
+const bonusPopup = document.getElementById('bonusPopup');
+const bonusClose = document.getElementById('bonusClose');
 
-document.getElementById("year").textContent =
-    new Date().getFullYear();
-
-// SAMPLE MATCH DATA
-const matches = [
-    {
-        format: "T20 INTERNATIONAL",
-        team1: "India",
-        flag1: "🇮🇳",
-        score1: "178/5",
-        overs1: "20.0 overs",
-        team2: "Australia",
-        flag2: "🇦🇺",
-        score2: "142/4",
-        overs2: "16.0 overs",
-        result: "Illustrative score only"
-    },
-    {
-        format: "ONE DAY INTERNATIONAL",
-        team1: "England",
-        flag1: "🏴",
-        score1: "—",
-        overs1: "Yet to bat",
-        team2: "Pakistan",
-        flag2: "🇵🇰",
-        score2: "—",
-        overs2: "Yet to bat",
-        result: "Example fixture"
-    },
-    {
-        format: "TEST CRICKET",
-        team1: "South Africa",
-        flag1: "🇿🇦",
-        score1: "285",
-        overs1: "1st innings",
-        team2: "Australia",
-        flag2: "🇦🇺",
-        score2: "210/5",
-        overs2: "2nd innings",
-        result: "Illustrative score only"
-    },
-    {
-        format: "T20 LEAGUE",
-        team1: "Mumbai",
-        flag1: "🔵",
-        score1: "165/7",
-        overs1: "20 overs",
-        team2: "Chennai",
-        flag2: "🟡",
-        score2: "158/8",
-        overs2: "20 overs",
-        result: "Example completed match"
-    },
-    {
-        format: "INTERNATIONAL",
-        team1: "New Zealand",
-        flag1: "🇳🇿",
-        score1: "—",
-        overs1: "Upcoming",
-        team2: "Sri Lanka",
-        flag2: "🇱🇰",
-        score2: "—",
-        overs2: "Upcoming",
-        result: "Example fixture"
-    },
-    {
-        format: "WOMEN'S CRICKET",
-        team1: "Australia",
-        flag1: "🇦🇺",
-        score1: "—",
-        overs1: "Upcoming",
-        team2: "England",
-        flag2: "🏴",
-        score2: "—",
-        overs2: "Upcoming",
-        result: "Example fixture"
-    }
-];
-
-const scoreGrid = document.getElementById("scoreGrid");
-
-matches.forEach(match => {
-    const card = document.createElement("article");
-    card.className = "card";
-
-    card.innerHTML = `
-        <div class="match-head">
-            <span>${match.format}</span>
-            <span>DEMO</span>
-        </div>
-
-        <div class="team">
-            <div class="team-name">
-                <span class="flag">${match.flag1}</span>
-                <span>${match.team1}</span>
-            </div>
-            <div style="text-align:right">
-                <div class="score">${match.score1}</div>
-                <div class="overs">${match.overs1}</div>
-            </div>
-        </div>
-
-        <div class="team">
-            <div class="team-name">
-                <span class="flag">${match.flag2}</span>
-                <span>${match.team2}</span>
-            </div>
-            <div style="text-align:right">
-                <div class="score">${match.score2}</div>
-                <div class="overs">${match.overs2}</div>
-            </div>
-        </div>
-
-        <div class="match-result">${match.result}</div>
-
-        <div class="match-actions">
-            <button class="score-details">Scorecard</button>
-            <button class="commentary-details">Commentary</button>
-        </div>
-    `;
-
-    card.querySelector(".score-details").addEventListener("click", () => {
-        alert(
-            match.team1 + " vs " + match.team2 +
-            "\n" + match.score1 + " - " + match.score2 +
-            "\nDemo scorecard. Connect a cricket API for real data."
-        );
-    });
-
-    card.querySelector(".commentary-details").addEventListener("click", () => {
-        document.getElementById("blog").scrollIntoView({
-            behavior: "smooth"
-        });
-        document.getElementById("commentaryTitle").textContent =
-            match.team1 + " vs " + match.team2;
-    });
-
-    scoreGrid.appendChild(card);
-});
-
-// SAMPLE COMMENTARY
-let commentary = [
-    {
-        over: "19.4",
-        type: "boundary",
-        title: "FOUR RUNS!",
-        text: "A beautifully timed shot races to the boundary. Sample event."
-    },
-    {
-        over: "19.3",
-        type: "all",
-        title: "Two runs",
-        text: "Good running between the wickets brings two runs."
-    },
-    {
-        over: "19.2",
-        type: "wicket",
-        title: "WICKET!",
-        text: "The batter is dismissed after a sharp delivery. Sample event."
-    },
-    {
-        over: "19.1",
-        type: "boundary",
-        title: "SIX RUNS!",
-        text: "A powerful shot clears the boundary. Sample event."
-    },
-    {
-        over: "18.6",
-        type: "all",
-        title: "Dot ball",
-        text: "The bowler finishes the over with a disciplined delivery."
-    },
-    {
-        over: "18.5",
-        type: "all",
-        title: "Single taken",
-        text: "The batter rotates the strike with a quick single."
-    }
-];
-
-let activeFilter = "all";
-const feed = document.getElementById("commentaryFeed");
-
-function renderCommentary() {
-    feed.replaceChildren();
-
-    const visibleItems = commentary.filter(item =>
-        activeFilter === "all" || item.type === activeFilter
-    );
-
-    if (visibleItems.length === 0) {
-        feed.textContent = "No sample events in this category.";
-        return;
-    }
-
-    visibleItems.forEach(item => {
-        const row = document.createElement("div");
-        row.className = "commentary-item";
-
-        const over = document.createElement("div");
-        over.className = "over-ball";
-        over.textContent = item.over;
-
-        const details = document.createElement("div");
-
-        const heading = document.createElement("strong");
-        heading.textContent = item.title;
-
-        const paragraph = document.createElement("p");
-        paragraph.textContent = item.text;
-
-        details.append(heading, paragraph);
-        row.append(over, details);
-        feed.appendChild(row);
-    });
+function closeBonusPopup(){
+  bonusPopup.hidden = true;
 }
 
-document.querySelectorAll(".tab").forEach(button => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach(tab =>
-            tab.classList.remove("active")
-        );
-
-        button.classList.add("active");
-        activeFilter = button.dataset.filter;
-        renderCommentary();
-    });
+bonusClose.addEventListener('click', closeBonusPopup);
+bonusPopup.addEventListener('click', (event) => {
+  if(event.target === bonusPopup) closeBonusPopup();
 });
-
-document.getElementById("moreCommentary").addEventListener("click", () => {
-    commentary.unshift({
-        over: "NEW",
-        type: "all",
-        title: "New sample update",
-        text: "This demonstration update was added locally in your browser."
-    });
-
-    renderCommentary();
+document.addEventListener('keydown', (event) => {
+  if(event.key === 'Escape') closeBonusPopup();
 });
-
-renderCommentary();
-
-// SEARCH NEWS
-function searchNews() {
-    const query = document.getElementById("globalSearch")
-        .value.toLowerCase().trim();
-
-    document.querySelectorAll(".news-item").forEach(item => {
-        const text = (
-            item.innerText + " " + item.dataset.search
-        ).toLowerCase();
-
-        item.hidden = !text.includes(query);
-    });
-
-    document.getElementById("news").scrollIntoView({
-        behavior: "smooth"
-    });
-}
-
-document.getElementById("searchButton")
-    .addEventListener("click", searchNews);
-
-document.getElementById("globalSearch")
-    .addEventListener("keydown", event => {
-        if (event.key === "Enter") searchNews();
-    });
-
-// UPCOMING FIXTURES
-const fixtures = [
-    {
-        teams: "India vs Australia",
-        format: "T20 International",
-        date: "Date to be confirmed"
-    },
-    {
-        teams: "England vs Pakistan",
-        format: "ODI",
-        date: "Date to be confirmed"
-    },
-    {
-        teams: "South Africa vs New Zealand",
-        format: "Test Match",
-        date: "Date to be confirmed"
-    },
-    {
-        teams: "Sri Lanka vs Bangladesh",
-        format: "T20 International",
-        date: "Date to be confirmed"
-    }
-];
-
-const fixtureGrid = document.getElementById("fixtureGrid");
-
-fixtures.forEach(fixture => {
-    const element = document.createElement("article");
-    element.className = "fixture";
-
-    const info = document.createElement("div");
-    const title = document.createElement("strong");
-    title.textContent = fixture.teams;
-
-    const format = document.createElement("p");
-    format.textContent = fixture.format;
-
-    const date = document.createElement("p");
-    date.textContent = fixture.date;
-
-    info.append(title, format, date);
-
-    const badge = document.createElement("span");
-    badge.className = "fixture-badge";
-    badge.textContent = "FIXTURE";
-
-    element.append(info, badge);
-    fixtureGrid.appendChild(element);
-});
-
-// NEWSLETTER DEMO
-document.getElementById("newsletterForm")
-    .addEventListener("submit", event => {
-        event.preventDefault();
-
-        document.getElementById("newsletterMessage").textContent =
-            "Demo subscription received. Connect a backend or email service to save subscribers.";
-
-        event.target.reset();
-    });
 </script>
-
 </body>
 </html>
