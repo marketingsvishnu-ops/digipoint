@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ICE Support</title>
+
+  <meta
+    name="description"
+    content="ICE Support provides simple information and customer assistance."
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0a0d11;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header {
+      padding: 22px 0;
+      border-bottom: 1px solid #242a31;
+      background: #0a0d11;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      border: 1px solid #292929;
+    }
+
+    .logo span {
+      color: #ff2d2d;
+    }
+
+    .brand h2 {
+      font-size: 20px;
+    }
+
+    .brand p {
+      color: #939da7;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .hero {
+      padding: 70px 0 35px;
+    }
+
+    .hero-box {
+      padding: 68px 48px;
+      border-radius: 26px;
+      border: 1px solid #252c34;
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(255, 45, 45, 0.13),
+          transparent 30%
+        ),
+        linear-gradient(135deg, #151a20, #0e1216);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: #221313;
+      border: 1px solid #4b2020;
+      color: #ff7474;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 52px;
+      line-height: 1.08;
+      max-width: 730px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: #b1bac4;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .primary {
+      background: #ef2929;
+      color: #ffffff;
+    }
+
+    .secondary {
+      background: #171c22;
+      border: 1px solid #343b44;
+      color: #ffffff;
+    }
+
+    .section {
+      padding: 38px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #9ca6b0;
+      line-height: 1.7;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: #12171c;
+      border: 1px solid #252c34;
+      border-radius: 18px;
+      padding: 27px;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #9fa9b3;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .contact {
+      margin-top: 28px;
+      background: #12171c;
+      border: 1px solid #252c34;
+      border-radius: 18px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .contact h2 {
+      margin-bottom: 10px;
+    }
+
+    .contact p {
+      color: #9fa9b3;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .phone {
+      font-size: 23px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .phone a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .notice {
+      margin-top: 28px;
+      padding: 20px 22px;
+      background: #0e1216;
+      border: 1px solid #252c34;
+      border-radius: 14px;
+      color: #818b95;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    footer {
+      margin-top: 40px;
+      border-top: 1px solid #242a31;
+      padding: 28px 0 38px;
+      text-align: center;
+      color: #707b85;
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding-top: 40px;
+      }
+
+      .hero-box {
+        padding: 42px 24px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <div class="brand">
+
+        <div class="logo">
+          ICE<span>.</span>
+        </div>
+
+        <div>
+          <h2>ICE Support</h2>
+          <p>Simple & Clear Assistance</p>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+
+    <section class="hero">
+
+      <div class="container">
+
+        <div class="hero-box">
+
+          <div class="tag">
+            ICE SUPPORT
+          </div>
+
+          <h1>
+            Simple Support.
+            Clear Information.
+          </h1>
+
+          <p>
+            Welcome to ICE Support. Explore useful information about our
+            services and get assistance through a simple and transparent
+            experience.
+          </p>
+
+          <div class="buttons">
+
+            <a href="#details" class="button primary">
+              Get Started
+            </a>
+
+            <a href="#contact" class="button secondary">
+              Contact Us
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section" id="details">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>How ICE Support Helps</h2>
+
+          <p>
+            Find useful information and understand the available support
+            options before choosing what you want to do next.
+          </p>
+
+        </div>
+
+
+        <div class="cards">
+
+          <div class="card">
+
+            <h3>Easy Information</h3>
+
+            <p>
+              Review clear information about our available services
+              without unnecessary steps.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Simple Experience</h3>
+
+            <p>
+              Our website is designed to work smoothly on both mobile
+              and desktop devices.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Customer Assistance</h3>
+
+            <p>
+              Contact details are provided clearly so visitors can choose
+              whether they want to get in touch.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="contact" id="contact">
+
+          <h2>Contact ICE Support</h2>
+
+          <p>
+            Need assistance? You can contact our support team using the
+            phone number below.
+          </p>
+
+          <div class="phone">
+            <a href="tel:+447516070201">
+              +44 7516 070201
+            </a>
+          </div>
+
+          <a href="tel:+447516070201" class="button primary">
+            Call Support
+          </a>
+
+        </div>
+
+
+        <div class="notice">
+
+          ICE Support does not automatically redirect visitors to WhatsApp,
+          messaging applications, or external websites. Contact actions are
+          initiated only when the visitor chooses to click them.
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="container">
+      © 2026 ICE Support. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
